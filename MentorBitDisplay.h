@@ -11,28 +11,32 @@
 #ifndef MentorBitDisplay_h
 #define MentorBitDisplay_h
 
-    #include "Arduino.h"
-    #include "Wire.h"
+    #if defined(_AVR_ATmega2560_) || defined(ARDUINO_AVR_MEGA2560)
 
-    class MentorBitDisplay
-    {
+        #include "Arduino.h"
+        #include "Wire.h"
 
-        public:
+        class MentorBitDisplay
+        {
 
-            MentorBitDisplay();
+            public:
 
-            void inicializarDisplay();
-            void imprimir(String valor);
-            void imprimir(int valor);
-            void imprimir(double valor);
+                MentorBitDisplay();
 
-        private:
+                void inicializarDisplay();
+                void imprimir(String valor);
+                void imprimir(int valor);
+                void imprimir(double valor);
 
-            uint8_t _display_buffer[8];
-            uint8_t _display_address;
-            void _writeDisplay();
-            uint8_t _charToSegmento(char c);
+            private:
 
-    };
+                uint8_t _display_buffer[8];
+                uint8_t _display_address;
+                void _writeDisplay();
+                uint8_t _charToSegmento(char c);
 
+        };
+
+    #endif
+    
 #endif

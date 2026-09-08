@@ -18,6 +18,8 @@
 
     #include "MentorPort.h"
 
+    #if defined(_AVR_ATmega2560_) || defined(ARDUINO_AVR_MEGA2560)
+
     class MentorBitPuertos
     {
 
@@ -65,5 +67,35 @@
             void conectar(uint8_t port, MentorPort& module);
 
     };
+
+    #elif defined(ARDUINO_BBC_MICROBIT_V2) || defined(ARDUINO_ARCH_NRF5)
+
+    class MentorBitPuertos
+    {
+
+        public:
+
+            static const uint8_t PUERTO_MODULO_1 = 0x01;
+            static const uint8_t PUERTO_MODULO_2 = 0x02;
+            static const uint8_t PUERTO_MODULO_3 = 0x03;
+            
+
+            static const uint8_t PUERTO_MODULO_1_DIGITAL = 8;
+            static const uint8_t PUERTO_MODULO_1_ANALOGICO = 0;
+
+            static const uint8_t PUERTO_MODULO_2_DIGITAL = 9;
+            static const uint8_t PUERTO_MODULO_2_ANALOGICO = 1;
+
+            static const uint8_t PUERTO_MODULO_3_DIGITAL = 16;
+            static const uint8_t PUERTO_MODULO_3_ANALOGICO = 2;
+           
+
+            MentorBitPuertos();
+            void conectar(uint8_t port, MentorPort& module);
+
+    };
+    
+    
+    #endif
 
 #endif

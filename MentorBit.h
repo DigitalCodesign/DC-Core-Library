@@ -16,36 +16,40 @@
 #ifndef MentorBit_h
 #define MentorBit_h
 
-    #include "Arduino.h"
+    #if defined(_AVR_ATmega2560_) || defined(ARDUINO_AVR_MEGA2560)
 
-    class MentorBit
-    {
+        #include "Arduino.h"
 
-        public:
+        class MentorBit
+        {
 
-            static const uint8_t LED_ROJO = 5;
-            static const uint8_t LED_VERDE = 6;
-            static const uint8_t LED_AZUL = 7;
-            static const uint8_t RGB_ROJO = 8;
-            static const uint8_t RGB_VERDE = 9;
-            static const uint8_t RGB_AZUL = 10;
-            static const uint8_t PULSADOR_PULLUP_DIGITAL = 22;
-            static const uint8_t PULSADOR_PULLDOWN_DIGITAL = 23;
-            static const uint8_t ZUMBADOR = 25;
-            static const uint8_t POTENCIOMETRO = PIN_A0;
-            static const uint8_t PULSADOR_PULLDOWN_ANALOGICO = PIN_A2;
-            static const uint8_t PULSADOR_PULLUP_ANALOGICO = PIN_A3;
+            public:
 
-            MentorBit();
+                static const uint8_t LED_ROJO = 5;
+                static const uint8_t LED_VERDE = 6;
+                static const uint8_t LED_AZUL = 7;
+                static const uint8_t RGB_ROJO = 8;
+                static const uint8_t RGB_VERDE = 9;
+                static const uint8_t RGB_AZUL = 10;
+                static const uint8_t PULSADOR_PULLUP_DIGITAL = 22;
+                static const uint8_t PULSADOR_PULLDOWN_DIGITAL = 23;
+                static const uint8_t ZUMBADOR = 25;
+                static const uint8_t POTENCIOMETRO = PIN_A0;
+                static const uint8_t PULSADOR_PULLDOWN_ANALOGICO = PIN_A2;
+                static const uint8_t PULSADOR_PULLUP_ANALOGICO = PIN_A3;
 
-            void encenderLED(uint8_t led);
-            void apagarLED(uint8_t led);
-            void encenderRGB(uint8_t rojo, uint8_t verde, uint8_t azul);
-            void apagarRGB();
-            void generarTono(uint16_t frecuencia, uint8_t duracion);
-            bool obtenerLecturaPulsador(uint8_t pulsador);
-            uint16_t obtenerLecturaPotenciometro();
+                MentorBit();
 
-    };
+                void encenderLED(uint8_t led);
+                void apagarLED(uint8_t led);
+                void encenderRGB(uint8_t rojo, uint8_t verde, uint8_t azul);
+                void apagarRGB();
+                void generarTono(uint16_t frecuencia, uint8_t duracion);
+                bool obtenerLecturaPulsador(uint8_t pulsador);
+                uint16_t obtenerLecturaPotenciometro();
 
+        };
+
+    #endif
+    
 #endif

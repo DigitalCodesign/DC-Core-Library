@@ -11,50 +11,54 @@
 #ifndef MentorBitDataLogger_h
 #define MentorBitDataLogger_h
 
-    #include "Arduino.h"
-    #include "Wire.h"
-    #include "SD.h"
+    #if defined(_AVR_ATmega2560_) || defined(ARDUINO_AVR_MEGA2560)
 
-    class MentorBitDataLogger
-    {
+        #include "Arduino.h"
+        #include "Wire.h"
+        #include "SD.h"
 
-        public:
+        class MentorBitDataLogger
+        {
 
-            static const uint8_t SD_CHIP_SELECT = PIN_A6;
+            public:
 
-            MentorBitDataLogger();
+                static const uint8_t SD_CHIP_SELECT = PIN_A6;
 
-            // --- Métodos específicos de la Tarjeta SD
-            boolean inicializarSD();
-            boolean escribirEnArchivo(String nombre_archivo, String mensaje);
-            String leerDeArchivo(String nombre_archivo);
-            boolean escribirLog(String nombre_archivo, String mensaje);
+                MentorBitDataLogger();
 
-            // --- Métodos específicos del Reloj en Tiempo Real
-            boolean inicializarRTC();
-            void ajustarHoraRTC(
-                uint16_t anyo, uint8_t mes, uint8_t dia,
-                uint8_t hora, uint8_t minuto, uint8_t segundo=0
-            );
-            void ajustarHoraRTC();
-            String obtenerHoraRTC(String formato="hh:mm:ss");
-            boolean rtcFuncionando();
+                // --- Métodos específicos de la Tarjeta SD
+                boolean inicializarSD();
+                boolean escribirEnArchivo(String nombre_archivo, String mensaje);
+                String leerDeArchivo(String nombre_archivo);
+                boolean escribirLog(String nombre_archivo, String mensaje);
 
-            // --- Métodos extra (NVRAM)
-            void guardarDato(uint8_t direccion, uint8_t dato);
-            uint8_t leerDato(uint8_t direccion);
+                // --- Métodos específicos del Reloj en Tiempo Real
+                boolean inicializarRTC();
+                void ajustarHoraRTC(
+                    uint16_t anyo, uint8_t mes, uint8_t dia,
+                    uint8_t hora, uint8_t minuto, uint8_t segundo=0
+                );
+                void ajustarHoraRTC();
+                String obtenerHoraRTC(String formato="hh:mm:ss");
+                boolean rtcFuncionando();
 
-        private:
+                // --- Métodos extra (NVRAM)
+                void guardarDato(uint8_t direccion, uint8_t dato);
+                uint8_t leerDato(uint8_t direccion);
 
-            File _data_file;
-            uint16_t _y;
-            uint8_t _m, _d, _hh, _mm, _ss;
-            uint8_t _rtc_address;
+            private:
 
-            uint8_t bcdToDec(uint8_t valor);
-            uint8_t decToBcd(uint8_t valor);
-            void _leerRTC();
+                File _data_file;
+                uint16_t _y;
+                uint8_t _m, _d, _hh, _mm, _ss;
+                uint8_t _rtc_address;
 
-    };
+                uint8_t bcdToDec(uint8_t valor);
+                uint8_t decToBcd(uint8_t valor);
+                void _leerRTC();
+
+        };
+
+        #endif
 
 #endif
